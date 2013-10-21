@@ -133,6 +133,7 @@
   (let [context (dissoc context :cli/option-descriptors)
         main (resolve-main context)
         main-meta (meta main)]
+    (assert main)
     (reduce
      (fn [cntxt cmd]
        (let [m (resolve-meta cntxt cmd )]

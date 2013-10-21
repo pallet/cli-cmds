@@ -14,7 +14,7 @@
 
 ;; This Var controls whether exit will exit the JVM process or return
 ;; and integer code
-(def ^:dynamic *exit-process?* true)
+(def ^:dynamic *exit-process?* false)
 
 (defn exit
   "Exit the JVM process if *exit-process?* is true, or return the exit-code."
@@ -74,9 +74,10 @@
 (defn cli-non-strict
   "Process the args with the specified options.
   Return a tuple vector containing options map, args and help string. "
-  [context args option-descriptor]
+  [args option-descriptors]
+  {:pre [(or (nil? option-descriptors) (sequential? option-descriptors))]}
   (binding [*allow-unknown-opts?* true]
-    (apply cli args option-descriptor)))
+    (apply cli args option-descriptors)))
 
 ;;; ## Arg validation
 (defn ^:internal validate-arg
@@ -100,17 +101,17 @@
     arg))
 
 (defn ^:internal arg-descriptor-map
-  [[name description & {:keys [optional valid-fn] :as options}]]
+  [[name description & {:keys [optional valid-fn parse-fn] :as options}]]
   (merge options {:arg-name name :description description}))
 
 (defn- reduce-arg
-  [[res args] arg-descriptor]
+  [[res args] arg-descriptor-map]
   [(merge-with conj res
                (validate-arg
                 (if (seq args)
-                  (parse-arg (first args) arg-descriptor)
+                  (parse-arg (first args) arg-descriptor-map)
                   ::missing)
-                arg-descriptor))
+                arg-descriptor-map))
    (rest args)])
 
 (defn validate-args
@@ -131,12 +132,12 @@
 
         [args extra-args] [(take n cmd-args) (drop n cmd-args)]
 
-        {:keys [valid-args invalid-args]}
+        [{:keys [valid-args invalid-args]} _]
         (reduce
          reduce-arg
          [{:valid-args [] :invalid-args []} args]
          arg-descriptors)]
-    [valid-args invalid-args extra-args]))
+    [(remove #{::missing} valid-args) invalid-args extra-args]))
 
 (defn invalid-args-message
   [invalid-args]
@@ -151,41 +152,51 @@
    invalid-args))
 
 (defn throw-on-invalid-args
-  [context invalid-args]
+  [invalid-args]
   (when (seq invalid-args)
     (throw
      (ex-info
       (invalid-args-message invalid-args)
       {:type :cli/invalid-args
        :invalid-args invalid-args
-       :context context
        :exit-code 1}))))
 
 (defn throw-on-extra-args
-  [context extra-args]
+  [extra-args]
   (when (seq extra-args)
     (throw
      (ex-info
       (str "Extra arguments provided: " (string/join ", " extra-args))
       {:type :cli/extra-args
        :extra-args extra-args
-       :context context
        :exit-code 1}))))
 
+(defn valid-args [cmd-args arg-descriptors]
+  (let [[valid-args invalid-args extra-args]
+        (validate-args cmd-args arg-descriptors)]
+    (throw-on-invalid-args invalid-args)
+    (throw-on-extra-args extra-args)
+    valid-args))
+
+(defn options-and-args
+  "Return a vector tuple of options and arguments."
+  [args arg-descriptors option-descriptors]
+  {:pre [(or (nil? args) (sequential? args))
+         (or (nil? arg-descriptors) (sequential? arg-descriptors))
+         (or (nil? option-descriptors) (sequential? option-descriptors))]}
+  (let [[options args] (cli-non-strict args option-descriptors)
+        valid-args (valid-args args arg-descriptors)]
+    [options valid-args]))
+
 ;;; ## Command execution
-(defn execute-args
+(defn execute-subcommand
   "Execute a sub-command from args passed to the CLI."
-  [context args cmd-name description arg-descriptors option-descriptors]
+  [context [cmd & cmd-args] cmd-name description arg-descriptors
+   option-descriptors]
   (handle-exceptions
    (let [context (push-context context cmd-name description arg-descriptors
-                               option-descriptors)
-         [options [cmd & cmd-args] _] (apply cli args option-descriptors)
-         [valid-args invalid-args extra-args] (validate-args
-                                               cmd-args arg-descriptors)]
-     (throw-on-invalid-args context invalid-args)
-     (throw-on-extra-args context extra-args)
+                               option-descriptors)]
      (if cmd
-       (let [context (merge context options)]
-         (let [cmd-f (resolve-context context cmd)]
-           (cmd-f context cmd-args)))
+       (let [cmd-f (resolve-context context cmd)]
+         (cmd-f context cmd-args))
        (println (context-help-message context))))))

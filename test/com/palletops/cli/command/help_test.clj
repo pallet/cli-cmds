@@ -4,24 +4,24 @@
    [com.palletops.cli.resolve :refer [reset-commands!]]
    [com.palletops.cli.command.help :refer [help]]))
 
+(defn main
+  {:cli/description "desc"}
+  [])
+
+(defn main2
+  {:cli/description "desc"
+   :cli/option-descriptors [["-a" "--aswitch" "Some switch"]]}
+  [])
+
 (deftest help-test
   (reset-commands!)
-  (is (= "Unnamed Unknown version - Unknown SHA\n\ndesc\n\n"
+  (is (= "Unnamed Unknown version - Unknown SHA\n\ndesc\n\n     main \n\n"
          (with-out-str
-           (help {:cli/config {:project-description "desc"}
-                  :option-descriptor []}))))
-  (is (= "Unnamed Unknown version - Unknown SHA\n\ndesc\n\n
+           (help {:cli/config {:main-var #'main}
+                  :option-descriptor []}
+                 []))))
+  (is (= "Unnamed Unknown version - Unknown SHA\n\ndesc\n\n     main2 \n\n
  Switches       Default  Desc        \n --------       -------  ----        \n -a, --aswitch           Some switch \n\n"
          (with-out-str
-           (help {:cli/config {:project-description "desc"}
-                  :option-descriptor [["-a" "--aswitch" "Some switch"]]}))))
-  (is (= "Unnamed Unknown version - Unknown SHA\n\ndesc\n
-Available commands:
-cmd1                 cmd1 ns doc\n
- Switches       Default  Desc        \n --------       -------  ----        \n -a, --aswitch           Some switch \n\n"
-         (with-out-str
-           (reset-commands!)
-           (help {:cli/config
-                  {:project-description "desc"
-                   :ns-prefixes ["com.palletops.cli.command.help_test."]}
-                  :option-descriptor [["-a" "--aswitch" "Some switch"]]})))))
+           (help {:cli/config {:main-var #'main2}}
+                 [])))))

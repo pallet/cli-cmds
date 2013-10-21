@@ -64,7 +64,9 @@ It is possible to use a lower level api.
 
 ### Command Dispatch
 
-The `execute-args` function can be used to dispatch a command to
+The `options-and-args` function returns parsed options and arguments.
+
+The `execute-subcommand` function can be used to dispatch a command to
 sub-commands.
 
 ### Help Information
@@ -78,7 +80,6 @@ To use a plain function for a commmand, the function var must have
 
 To use a plain function for the cli main command, ensure the function var has
 :cli/main metadata, with a `true` value.
-
 
 ## Concepts
 

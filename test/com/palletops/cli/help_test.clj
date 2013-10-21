@@ -1,7 +1,7 @@
 (ns com.palletops.cli.help-test
   (:require
    [clojure.test :refer :all]
-   [com.palletops.cli.help :refer [static-help]]))
+   [com.palletops.cli.help :refer [doc-string static-help]]))
 
 (deftest static-help-test
   (testing "path"
@@ -15,3 +15,10 @@
            (static-help
             {:cli/config {:static-help-path "help"}}
             ["sub" "test"])))))
+
+(deftest doc-string-test
+  (is (= "desc" (doc-string "desc" nil)))
+  (is (= "desc" (doc-string "desc" [])))
+  (is (= "desc\n
+ Switches       Default  Desc        \n --------       -------  ----        \n -a, --aswitch           Some switch \n"
+         (doc-string "desc" [["-a" "--aswitch" "Some switch"]]))))

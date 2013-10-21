@@ -123,7 +123,7 @@
         (first
          (map #(resolve-command-from-ns-prefix % cmd-path cmd) ns-prefixes)))))
   ([context cmd]
-     (resolve-command cmd cmd)))
+     (resolve-command context cmd cmd)))
 
 (defn command-not-found
   [context cmd]
