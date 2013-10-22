@@ -65,4 +65,4 @@ ordinary function."
          (report-exceptions
           (~main
            (initial-context (merge {:main-var (var ~main) } ~config))
-           args#))))))
+           (if (not= args# [""]) args#))))))) ;; bug in grench?

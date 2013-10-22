@@ -17,8 +17,9 @@
 (defn prefix-plugins
   "Return a sequence of [command, namespace symbol] tuples."
   [prefix]
-  (map #(vector (subs (name %) (count prefix)) %)
-       (plugins prefix)))
+  (let [n (inc (.lastIndexOf prefix "."))]
+    (map #(vector (subs (name %) n) %)
+         (plugins prefix))))
 
 (defn ns-plugins
   "Return a sequence of [command, namespace symbol] tuples."
@@ -26,29 +27,34 @@
   (require ns-sym)
   [(last (string/split (name ns-sym) #"\.")) ns-sym])
 
-;; TODO - split in two
 (defn commands
   "Return a sequence of the available command namespace symbols.
   This does not load the namespaces."
   [context]
   (let [{:keys [ns-prefixes commands]} (:cli/config context)]
     (try
-      (let [cmds (or @command-map
-                     (reset! command-map
-                             (into {} (concat
-                                       (map ns-plugins commands)
-                                       (mapcat prefix-plugins ns-prefixes)))))]
-        (if-let [cmd-path (:cmd-path context)]
-          (into {} (filter #(.startsWith (key %)
-                                         (str (string/join "." cmd-path) "."))
-                           cmds))
-          cmds))
+      (or @command-map
+          (reset! command-map
+                  (into {} (concat
+                            (map ns-plugins commands)
+                            (mapcat prefix-plugins ns-prefixes)))))
       (catch Exception e
         (throw
          (ex-info
           "Invalid command on classpath"
           {:type :cli/invalid-command}
           e))))))
+
+(defn filter-command-prefix
+  "Filter a map of commands for commands with the given prefix."
+  [cmds cmd-path]
+  (if cmd-path
+    (into {} (filter #(.startsWith (key %)
+                                   (str (string/join "." cmd-path) "."))
+                     cmds))
+    cmds))
+
+
 
 (defn- distance                         ; taken verbatim from leiningen
   "String distance"
@@ -87,27 +93,35 @@
   [ns-sym cmd-path cmd]
   {:pre [(symbol? ns-sym)
          (or (nil? cmd-path) (symbol? cmd-path))
-         (symbol? cmd)]}
+         (symbol? cmd)
+         (not= (symbol "") cmd)]}
   (when (.endsWith (name ns-sym)
-                   (str (if cmd-path (str cmd-path ".")) cmd))
+                   (str (if cmd-path (str "." cmd-path ".")) cmd))
     (when-not (find-ns ns-sym)
-      (require ns-sym))
-    (ns-resolve ns-sym cmd)))
+      (try (require ns-sym)
+           (catch java.io.FileNotFoundException _)))
+    (if (find-ns ns-sym)
+      (ns-resolve ns-sym cmd))))
 
 (defn resolve-command-from-ns-prefix
   [ns-prefix cmd-path cmd]
   {:pre [(string? ns-prefix)
          (or (nil? cmd-path) (symbol? cmd-path))
          (not= (symbol "") cmd-path)
-         (symbol? cmd)]}
-  (try
+         (symbol? cmd)
+         (not= (symbol "") cmd)]}
+  (let [s (prefix->ns-string ns-prefix)]
+    ;; if the prefix ends without a ".", it can only match the
+    ;; specified command directly, or a subcommand (with the
+    ;; addition of the ".")
     (resolve-command-from-ns
-     (symbol (str (prefix->ns-string ns-prefix)
-                  (if cmd-path (str cmd-path "."))
-                  cmd))
+     (symbol (str s
+                  (if (and cmd-path (not (.endsWith s "."))) ".")
+                  (if (and cmd-path (not (.endsWith s (name cmd-path))))
+                    (str cmd-path "."))
+                  (if (or cmd-path (.endsWith s ".")) cmd)))
      cmd-path
-     cmd)
-    (catch java.io.FileNotFoundException _)))
+     cmd)))
 
 (defn resolve-command
   "Return the command function for the given context and cmd name.
@@ -119,9 +133,14 @@
            cmd (symbol cmd)
            {:keys [commands ns-prefixes]} (:cli/config context)]
        (or
-        (first (map #(resolve-command-from-ns % cmd-path cmd) commands))
-        (first
-         (map #(resolve-command-from-ns-prefix % cmd-path cmd) ns-prefixes)))))
+        (->> commands
+             (map #(resolve-command-from-ns % cmd-path cmd))
+             (remove nil?)
+             first )
+        (->> ns-prefixes
+             (map #(resolve-command-from-ns-prefix % cmd-path cmd))
+             (remove nil?)
+             first))))
   ([context cmd]
      (resolve-command context cmd cmd)))
 

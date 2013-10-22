@@ -7,7 +7,7 @@
    [com.palletops.cli.context
     :refer [config push-command push-context version-string]]
    [com.palletops.cli.resolve
-    :refer [commands resolve-context resolve-command resolve-main]]))
+    :refer [commands filter-command-prefix resolve-context resolve-main]]))
 
 
 ;;; # Static Help Files
@@ -52,7 +52,7 @@
 
 (defn cmd-ns-doc [context cmd-ns cmd-name]
   (or (:doc (meta (find-ns cmd-ns)))
-      (first (string/split-lines (:cli/description context) "\n"))))
+      (first (string/split-lines (:cli/description context)))))
 
 (defn help-summary-for [context [cmd-name cmd-ns]]
   (try
@@ -157,7 +157,8 @@
       \newline
 
       (when-let [cmds (seq (commands-for
-                            (commands context)
+                            (filter-command-prefix
+                             (commands context) (:cmd-path context))
                             (:cli/cmd-path context)))]
         (str
          \newline
