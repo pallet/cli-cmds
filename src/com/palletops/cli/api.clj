@@ -29,7 +29,7 @@
 
 ;;; ## Exception Handling
 (defn handle-exceptions*
-  "Executes a function with handling of exceptions contain :exit-code."
+  "Executes a function with handling of exceptions containing :exit-code."
   [f]
   (try
     (f)
