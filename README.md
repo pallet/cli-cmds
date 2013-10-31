@@ -1,3 +1,9 @@
+[Repository](https://github.com/pallet/cli-cmds) &#xb7;
+[Issues](https://github.com/pallet/cli-cmds/issues) &#xb7;
+[API docs](http://palletops.com/cli-cmds/0.1/api) &#xb7;
+[Annotated source](http://palletops.com/cli-cmds/0.1/annotated/uberdoc.html) &#xb7;
+[Release Notes](https://github.com/pallet/cli-cmds/blob/develop/ReleaseNotes.md)
+
 # cli-cmds
 
 A Clojure library for writing command line interfaces, where
