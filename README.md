@@ -140,7 +140,7 @@ The `:cli/config` key is used to configure the library.
 ### lein project.clj
 
 ```clojure
-:dependencies [[com.palletops/cli-cmds "0.1.0-SNAPSHOT"]]
+:dependencies [[com.palletops/cli-cmds "0.1.0"]]
 ```
 
 ### maven pom.xml
@@ -150,7 +150,7 @@ The `:cli/config` key is used to configure the library.
   <dependency>
     <groupId>com.palletops</groupId>
     <artifactId>cli-cmds</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
   </dependency>
 <dependencies>
 

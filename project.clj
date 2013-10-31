@@ -1,4 +1,4 @@
-(defproject com.palletops/cli-cmds "0.1.0-SNAPSHOT"
+(defproject com.palletops/cli-cmds "0.1.0"
   :description "Library for writing command line interfaces"
   :url "https://githubs.com/pallet/cli-cmds"
   :license {:name "Eclipse Public License"
