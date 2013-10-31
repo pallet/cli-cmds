@@ -84,6 +84,8 @@
   "Validate a parsed argument."
   [arg {:keys [optional vararg valid-fn] :as arg-descriptor}]
   (cond
+   (map? arg) arg              ; propagate any error from the parse-fn
+
    (and (= arg ::missing) (not (or optional vararg)))
    {:invalid-args (assoc arg-descriptor :value arg :reason :missing)}
 
@@ -109,7 +111,12 @@
   [(merge-with conj res
                (validate-arg
                 (if (seq args)
-                  (parse-arg (first args) arg-descriptor-map)
+                  (try (parse-arg (first args) arg-descriptor-map)
+                       (catch Exception e
+                         {:invalid-args (assoc arg-descriptor-map
+                                          :value (first args)
+                                          :reason :not-parseable
+                                          :error (.getMessage e))}))
                   ::missing)
                 arg-descriptor-map))
    (rest args)])
@@ -142,12 +149,16 @@
 (defn invalid-args-message
   [invalid-args]
   (reduce
-   (fn [s {:keys [argument-name value reason]}]
-     (str s "Invalid argument for " argument-name " : "
+   (fn [s {:keys [arg-name value reason error value]}]
+     (str s "Invalid argument for '" arg-name "'"
+          (when value (str " with value '" value "'"))
+          ". "
           (condp = reason
-            :missing "argument missing"
-            :invalid "argument invalid")
-          "."))
+            :missing "Argument missing"
+            :invalid "Argument invalid"
+            :not-parseable "Argument wrong format")
+          "."
+          (when error (str " " error))))
    ""
    invalid-args))
 
