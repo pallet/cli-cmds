@@ -1,0 +1,142 @@
+<html lang="en">
+  <head>
+    <title>com.palletops.cli.api documentation</title>
+    <link href="css/default.css" type="text/css" rel="stylesheet" />
+    <link href="css/codox-md.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/page_effects.js"></script>
+  </head>
+  <body>
+    <header>
+    <div data-scrollspy="scrollspy" class="topbar">
+      <div class="topbar-inner">
+        <div class="container">
+          <a href="/" class="brand">Pallet</a>
+          <ul class="nav">
+            <li class=""><a href="/doc">Documentation</a></li>
+            <li class=""><a href="/news">News</a></li>
+            <li class=""><a href="/blog">Blog</a></li>
+            <li class=""><a href="https://github.com/pallet/pallet">Code</a></li>
+            <li class=""><a href="/services">Services</a></li>
+            <li class=""><a href="/support">Support</a></li>
+            <li class=""><a href="/contact">Contact</a></li>
+          </ul>
+          <form action="http://www.google.com/search" method="get" class="pull-right">
+            <input placeholder="Search" value="" maxlength="255" name="q" type="text" />
+            <input value="palletops.com" type="hidden" name="sitesearch" />
+          </form>
+        </div>
+      </div>
+    </div>
+      <div id="header">
+        <h1><a href="http://palletops.com"><span class="project-title">Cli-cmds 0.1.0 API documentation</span></a></h1>
+      </div>
+    </header>
+    <navigation>
+      <div id="namespaces" class="sidebar">
+        <h3>Namespaces</h3>
+        <ul class="ns-links">
+          <li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.api.html">com.palletops.cli.api</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.html">com.palletops.cli.command</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.help.html">com.palletops.cli.command.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.html">com.palletops.cli.command.server</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.kill.html">com.palletops.cli.command.server.kill</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.pid.html">com.palletops.cli.command.server.pid</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.version.html">com.palletops.cli.command.version</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.context.html">com.palletops.cli.context</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.help.html">com.palletops.cli.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.resolve.html">com.palletops.cli.resolve</a></li>
+        </ul>
+      </div>
+      <div id="vars" class="sidebar">
+        <h3>Public Vars</h3>
+        <ul class="ns-var-links">
+          <li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-cli-non-strict">cli-non-strict</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-execute-subcommand">execute-subcommand</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-exit">exit</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-handle-exceptions">handle-exceptions</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-handle-exceptions*">handle-exceptions*</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-options-and-args">options-and-args</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-parse-arg">parse-arg</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-report-exceptions">report-exceptions</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-report-exceptions*">report-exceptions*</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.api.html#var-validate-arg">validate-arg</a></li>
+        </ul>
+      </div>
+    </navigation>
+    <article>
+      <div id="content" class="namespace-docs">
+        <h2 class="namespace-title">com.palletops.cli.api documentation</h2>
+        <div class="doc"><p>API functions for the cli lib.</p>
+</div>
+        <div class="ns-vars">
+          <div class="public">
+            <h3><a id="var-cli-non-strict" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L74">cli-non-strict</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[args option-descriptors]</div>
+            
+            
+            <div class="doc"><p>Process the args with the specified options.
+Return a tuple vector containing options map, args and help string. </p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-execute-subcommand" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L203">execute-subcommand</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context [cmd &amp; cmd-args] cmd-name description arg-descriptors option-descriptors]</div>
+            
+            
+            <div class="doc"><p>Execute a sub-command from args passed to the CLI.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-exit" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L19">exit</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[exit-code]</div>
+            
+            
+            <div class="doc"><p>Exit the JVM process if <em>exit-process?</em> is true, or return the exit-code.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-handle-exceptions" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L49">handle-exceptions</a></h3>
+            <h4 class="var-type macro" id="var-type">macro</h4>
+            <div class="usage">[&amp; body]</div>
+            
+            
+            <div class="doc"><p>Provides a scope in which all exceptions are handled.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-handle-exceptions*" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L31">handle-exceptions*</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[f]</div>
+            
+            
+            <div class="doc"><p>Executes a function with handling of exceptions containing :exit-code.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-options-and-args" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L192">options-and-args</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[args arg-descriptors option-descriptors]</div>
+            
+            
+            <div class="doc"><p>Return a vector tuple of options and arguments.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-parse-arg" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L98">parse-arg</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[arg {:keys [parse-fn]}]</div>
+            
+            
+            <div class="doc"><p>Parse an argument, unless ::missing.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-report-exceptions" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L67">report-exceptions</a></h3>
+            <h4 class="var-type macro" id="var-type">macro</h4>
+            <div class="usage">[&amp; body]</div>
+            
+            
+            <div class="doc"><p>Provides a scope in which all throwables are reported.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-report-exceptions*" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L54">report-exceptions*</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[f]</div>
+            
+            
+            <div class="doc"><p>Executes a function with reporting of all throwables.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-validate-arg" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/api.clj#L83">validate-arg</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[arg {:keys [optional vararg valid-fn], :as arg-descriptor}]</div>
+            
+            
+            <div class="doc"><p>Validate a parsed argument.</p>
+</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+
+</html>

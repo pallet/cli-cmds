@@ -1,0 +1,117 @@
+<html lang="en">
+  <head>
+    <title>com.palletops.cli.help documentation</title>
+    <link href="css/default.css" type="text/css" rel="stylesheet" />
+    <link href="css/codox-md.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/page_effects.js"></script>
+  </head>
+  <body>
+    <header>
+    <div data-scrollspy="scrollspy" class="topbar">
+      <div class="topbar-inner">
+        <div class="container">
+          <a href="/" class="brand">Pallet</a>
+          <ul class="nav">
+            <li class=""><a href="/doc">Documentation</a></li>
+            <li class=""><a href="/news">News</a></li>
+            <li class=""><a href="/blog">Blog</a></li>
+            <li class=""><a href="https://github.com/pallet/pallet">Code</a></li>
+            <li class=""><a href="/services">Services</a></li>
+            <li class=""><a href="/support">Support</a></li>
+            <li class=""><a href="/contact">Contact</a></li>
+          </ul>
+          <form action="http://www.google.com/search" method="get" class="pull-right">
+            <input placeholder="Search" value="" maxlength="255" name="q" type="text" />
+            <input value="palletops.com" type="hidden" name="sitesearch" />
+          </form>
+        </div>
+      </div>
+    </div>
+      <div id="header">
+        <h1><a href="http://palletops.com"><span class="project-title">Cli-cmds 0.1.0 API documentation</span></a></h1>
+      </div>
+    </header>
+    <navigation>
+      <div id="namespaces" class="sidebar">
+        <h3>Namespaces</h3>
+        <ul class="ns-links">
+          <li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.api.html">com.palletops.cli.api</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.html">com.palletops.cli.command</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.help.html">com.palletops.cli.command.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.html">com.palletops.cli.command.server</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.kill.html">com.palletops.cli.command.server.kill</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.pid.html">com.palletops.cli.command.server.pid</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.version.html">com.palletops.cli.command.version</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.context.html">com.palletops.cli.context</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.help.html">com.palletops.cli.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.resolve.html">com.palletops.cli.resolve</a></li>
+        </ul>
+      </div>
+      <div id="vars" class="sidebar">
+        <h3>Public Vars</h3>
+        <ul class="ns-var-links">
+          <li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.help.html#var-commands-for">commands-for</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.help.html#var-context-help-message">context-help-message</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.help.html#var-doc-string">doc-string</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.help.html#var-help-context">help-context</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.help.html#var-help-message">help-message</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.help.html#var-meta-%3Eargs">meta-&gt;args</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.help.html#var-resolve-meta">resolve-meta</a></li>
+        </ul>
+      </div>
+    </navigation>
+    <article>
+      <div id="content" class="namespace-docs">
+        <h2 class="namespace-title">com.palletops.cli.help documentation</h2>
+        <div class="doc"><p>Functions to generate help messages.</p>
+</div>
+        <div class="ns-vars">
+          <div class="public">
+            <h3><a id="var-commands-for" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/help.clj#L106">commands-for</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[commands cmd-path]</div>
+            
+            
+            <div class="doc"><p>Return commands available at the given command path.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-context-help-message" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/help.clj#L146">context-help-message</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context]</div>
+            
+            
+            <div class="doc"><p>Return a help string for a given command.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-doc-string" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/help.clj#L69">doc-string</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[description option-descriptor]</div>
+            
+            
+            <div class="doc"><p>Return the doc string for the given description and options descriptor.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-help-context" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/help.clj#L130">help-context</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context commands]</div>
+            
+            
+            <div class="doc"><p>Builds a context for the specified commands</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-help-message" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/help.clj#L172">help-message</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context cmds]</div>
+            
+            
+            <div class="doc"><p>Return a help message for the given commands.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-meta-%3Eargs" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/help.clj#L118">meta-&gt;args</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[m]</div>
+            
+            
+            <div class="doc"><p>Convert meta data to args for push-context</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-resolve-meta" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/help.clj#L124">resolve-meta</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context cmd]</div>
+            
+            
+            <div class="doc"><p>Resolve meta for a command</p>
+</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+
+</html>

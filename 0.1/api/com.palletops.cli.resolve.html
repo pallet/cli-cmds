@@ -1,0 +1,144 @@
+<html lang="en">
+  <head>
+    <title>com.palletops.cli.resolve documentation</title>
+    <link href="css/default.css" type="text/css" rel="stylesheet" />
+    <link href="css/codox-md.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/page_effects.js"></script>
+  </head>
+  <body>
+    <header>
+    <div data-scrollspy="scrollspy" class="topbar">
+      <div class="topbar-inner">
+        <div class="container">
+          <a href="/" class="brand">Pallet</a>
+          <ul class="nav">
+            <li class=""><a href="/doc">Documentation</a></li>
+            <li class=""><a href="/news">News</a></li>
+            <li class=""><a href="/blog">Blog</a></li>
+            <li class=""><a href="https://github.com/pallet/pallet">Code</a></li>
+            <li class=""><a href="/services">Services</a></li>
+            <li class=""><a href="/support">Support</a></li>
+            <li class=""><a href="/contact">Contact</a></li>
+          </ul>
+          <form action="http://www.google.com/search" method="get" class="pull-right">
+            <input placeholder="Search" value="" maxlength="255" name="q" type="text" />
+            <input value="palletops.com" type="hidden" name="sitesearch" />
+          </form>
+        </div>
+      </div>
+    </div>
+      <div id="header">
+        <h1><a href="http://palletops.com"><span class="project-title">Cli-cmds 0.1.0 API documentation</span></a></h1>
+      </div>
+    </header>
+    <navigation>
+      <div id="namespaces" class="sidebar">
+        <h3>Namespaces</h3>
+        <ul class="ns-links">
+          <li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.api.html">com.palletops.cli.api</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.html">com.palletops.cli.command</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.help.html">com.palletops.cli.command.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.html">com.palletops.cli.command.server</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.kill.html">com.palletops.cli.command.server.kill</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.pid.html">com.palletops.cli.command.server.pid</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.version.html">com.palletops.cli.command.version</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.context.html">com.palletops.cli.context</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.help.html">com.palletops.cli.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.resolve.html">com.palletops.cli.resolve</a></li>
+        </ul>
+      </div>
+      <div id="vars" class="sidebar">
+        <h3>Public Vars</h3>
+        <ul class="ns-var-links">
+          <li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-command-map">command-map</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-commands">commands</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-filter-command-prefix">filter-command-prefix</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-find-command">find-command</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-ns-plugins">ns-plugins</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-prefix-plugins">prefix-plugins</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-resolve-command">resolve-command</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-resolve-command-from-ns">resolve-command-from-ns</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-resolve-main">resolve-main</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.resolve.html#var-suggestions">suggestions</a></li>
+        </ul>
+      </div>
+    </navigation>
+    <article>
+      <div id="content" class="namespace-docs">
+        <h2 class="namespace-title">com.palletops.cli.resolve documentation</h2>
+        <div class="doc"><p>Functions for resolving and finding cli commands</p>
+</div>
+        <div class="ns-vars">
+          <div class="public">
+            <h3><a id="var-command-map" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L8">command-map</a></h3>
+            <h4 class="var-type var" id="var-type">var</h4>
+            
+            
+            
+            <div class="doc"><p>A sequence of command namespace symbols.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-commands" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L30">commands</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context]</div>
+            
+            
+            <div class="doc"><p>Return a sequence of the available command namespace symbols.
+This does not load the namespaces.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-filter-command-prefix" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L48">filter-command-prefix</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[cmds cmd-path]</div>
+            
+            
+            <div class="doc"><p>Filter a map of commands for commands with the given prefix.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-find-command" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L161">find-command</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context cmd-path cmd &amp; {:keys [not-found-f], :or {not-found-f command-not-found}}]</div>
+            
+            
+            <div class="doc"><p>Return the command function for the given context and cmd name.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-ns-plugins" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L24">ns-plugins</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[ns-sym]</div>
+            
+            
+            <div class="doc"><p>Return a sequence of [command, namespace symbol] tuples.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-prefix-plugins" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L17">prefix-plugins</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[prefix]</div>
+            
+            
+            <div class="doc"><p>Return a sequence of [command, namespace symbol] tuples.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-resolve-command" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L126">resolve-command</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context cmd-path cmd]</div><div class="usage">[context cmd]</div>
+            
+            
+            <div class="doc"><p>Return the command function for the given context and cmd name.
+Returns nil if the command can not be resolved.
+<code>cmd-path</code> is a dotted namespace path for sub-commands.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-resolve-command-from-ns" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L91">resolve-command-from-ns</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[ns-sym cmd-path cmd]</div>
+            
+            
+            <div class="doc"><p>Require the given namespace symbol, and then resolve the cmd symbol.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-resolve-main" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L174">resolve-main</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context]</div>
+            
+            
+            <div class="doc"><p>Resolve a main entry point.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-suggestions" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/resolve.clj#L81">suggestions</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[cmd cmds]</div>
+            
+            
+            <div class="doc"><p>Suggest possible misspellings for command from list of commands.</p>
+</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+
+</html>

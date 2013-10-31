@@ -1,0 +1,123 @@
+<html lang="en">
+  <head>
+    <title>com.palletops.cli.context documentation</title>
+    <link href="css/default.css" type="text/css" rel="stylesheet" />
+    <link href="css/codox-md.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/page_effects.js"></script>
+  </head>
+  <body>
+    <header>
+    <div data-scrollspy="scrollspy" class="topbar">
+      <div class="topbar-inner">
+        <div class="container">
+          <a href="/" class="brand">Pallet</a>
+          <ul class="nav">
+            <li class=""><a href="/doc">Documentation</a></li>
+            <li class=""><a href="/news">News</a></li>
+            <li class=""><a href="/blog">Blog</a></li>
+            <li class=""><a href="https://github.com/pallet/pallet">Code</a></li>
+            <li class=""><a href="/services">Services</a></li>
+            <li class=""><a href="/support">Support</a></li>
+            <li class=""><a href="/contact">Contact</a></li>
+          </ul>
+          <form action="http://www.google.com/search" method="get" class="pull-right">
+            <input placeholder="Search" value="" maxlength="255" name="q" type="text" />
+            <input value="palletops.com" type="hidden" name="sitesearch" />
+          </form>
+        </div>
+      </div>
+    </div>
+      <div id="header">
+        <h1><a href="http://palletops.com"><span class="project-title">Cli-cmds 0.1.0 API documentation</span></a></h1>
+      </div>
+    </header>
+    <navigation>
+      <div id="namespaces" class="sidebar">
+        <h3>Namespaces</h3>
+        <ul class="ns-links">
+          <li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.api.html">com.palletops.cli.api</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.html">com.palletops.cli.command</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.help.html">com.palletops.cli.command.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.html">com.palletops.cli.command.server</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.kill.html">com.palletops.cli.command.server.kill</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.server.pid.html">com.palletops.cli.command.server.pid</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.command.version.html">com.palletops.cli.command.version</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.context.html">com.palletops.cli.context</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.help.html">com.palletops.cli.help</a></li><li class="ns-list"><a class="ns-link ns-name" href="com.palletops.cli.resolve.html">com.palletops.cli.resolve</a></li>
+        </ul>
+      </div>
+      <div id="vars" class="sidebar">
+        <h3>Public Vars</h3>
+        <ul class="ns-var-links">
+          <li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.context.html#var-config">config</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.context.html#var-initial-context">initial-context</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.context.html#var-push-command">push-command</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.context.html#var-push-context">push-context</a></li><li class="ns-var-list"><a class="ns-var-link ns-var-name" href="com.palletops.cli.context.html#var-version-string">version-string</a></li>
+        </ul>
+      </div>
+    </navigation>
+    <article>
+      <div id="content" class="namespace-docs">
+        <h2 class="namespace-title">com.palletops.cli.context documentation</h2>
+        <div class="doc"><p>Functions for accessing and manipulating the cli context.</p>
+</div>
+        <div class="ns-vars">
+          <div class="public">
+            <h3><a id="var-config" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/context.clj#L82">config</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context]</div>
+            
+            
+            <div class="doc"><p>Return the cli configuration from the context.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-initial-context" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/context.clj#L7">initial-context</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[{:keys [project-name project-ns self-name sha-resource commands ns-prefixes version main-var], :as options}]</div>
+            
+            
+            <div class="doc"><p>Provides a basic context.</p>
+
+<p><code>:project-name</code>
+: the name of the project.  Appears in version messages, etc.</p>
+
+<p><code>:self-name</code>
+: the name under which the command line is invoked.</p>
+
+<p><code>:ns-prefixes</code>
+: a sequence of namespace prefix strings, for runtime command discovery</p>
+
+<p><code>:commands</code>
+: a sequence of symbols for statically available commands</p>
+
+<p><code>:project-ns</code>
+: a namespace symbol for a namespace containing a <code>project</code> var with a
+  leiningen project map (maintained, for example, by configleaf)</p>
+
+<p><code>:sha-resoure</code>
+: a resource path string for a file containg a git sha for the project.</p>
+
+<p><code>:static-help-path</code>
+: a path (or format string), to the location of static help files</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-push-command" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/context.clj#L64">push-command</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context cmd]</div>
+            
+            
+            <div class="doc"><p>Push a command name onto the context.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-push-context" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/context.clj#L69">push-context</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context cmd description arg-descriptors option-descriptors]</div>
+            
+            
+            <div class="doc"><p>Push a command onto the context.</p>
+</div>
+          </div><div class="public">
+            <h3><a id="var-version-string" class="source var-name" href="https://github.com/pallet/cli-cmds/blob/develop/src/com/palletops/cli/context.clj#L87">version-string</a></h3>
+            <h4 class="var-type fn" id="var-type">fn</h4>
+            <div class="usage">[context]</div>
+            
+            
+            <div class="doc"><p>Return a version string based on the context.</p>
+</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </body>
+
+</html>
