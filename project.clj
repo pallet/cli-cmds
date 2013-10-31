@@ -6,5 +6,4 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [com.palletops/chiba "0.2.0"]
                  [org.clojure/tools.macro "0.1.2"]
-                 ;; TODO - push unknown options patch upstream
-                 [com.palletops/tools.cli "0.2.4-SNAPSHOT"]])
+                 [com.palletops/tools.cli "0.2.4"]])
