@@ -12,4 +12,4 @@
  {:plugins [[lein-set-version "0.3.0"]]
   :set-version
   {:updates [{:path "README.md" :no-snapshot true}]}}
- :no-checkouts {:checkout-deps-shares ^:replace []} ; disable checkouts}
+ :no-checkouts {:checkout-deps-shares ^:replace []}} ; disable checkouts
