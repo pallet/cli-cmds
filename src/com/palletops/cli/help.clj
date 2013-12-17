@@ -3,7 +3,7 @@
   (:require
    [clojure.string :as string]
    [clojure.java.io :refer [file resource]]
-   [clojure.tools.cli :refer [cli]]
+   [clojure.tools.cli :refer [parse-opts]]
    [com.palletops.cli.context
     :refer [config push-command push-context version-string]]
    [com.palletops.cli.resolve
@@ -70,7 +70,9 @@
   "Return the doc string for the given description and options descriptor."
   [description option-descriptor]
   (if (seq option-descriptor)
-    (last (apply cli nil description option-descriptor))
+    (str description \newline
+         (:summary (parse-opts nil option-descriptor :in-order true))
+         \newline)
     description))
 
 
@@ -136,7 +138,7 @@
     (assert main)
     (reduce
      (fn [cntxt cmd]
-       (let [m (resolve-meta cntxt cmd )]
+       (let [m (resolve-meta cntxt cmd)]
          (apply push-context cntxt (meta->args m))))
      (apply push-context context (meta->args main-meta))
      commands)))

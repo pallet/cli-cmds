@@ -20,8 +20,8 @@
            (help {:cli/config {:main-var #'main}
                   :option-descriptor []}
                  []))))
-  (is (= "Unnamed Unknown version - Unknown SHA\n\ndesc\n\n     main2 \n\n
- Switches       Default  Desc        \n --------       -------  ----        \n -a, --aswitch           Some switch \n\n"
+  (is (= "Unnamed Unknown version - Unknown SHA\n\ndesc\n\n     main2 \n
+  -a, --aswitch  Some switch\n\n"
          (with-out-str
            (help {:cli/config {:main-var #'main2}}
                  [])))))

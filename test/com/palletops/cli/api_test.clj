@@ -8,4 +8,4 @@
          (options-and-args
           ["-a" "1" "1"]
           [["arg1" "Arg1" :parse-fn #(Integer/parseInt %)]]
-          [["-a" "--option-a" "Option" :parse-fn #(Integer/parseInt %)]]))))
+          [["-a" "--option-a A" "Option" :parse-fn #(Integer/parseInt %)]]))))
