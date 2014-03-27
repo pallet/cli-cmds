@@ -3,7 +3,7 @@
   (:require
    [clojure.stacktrace :refer [print-cause-trace]]
    [clojure.string :as string]
-   [clojure.tools.cli :refer [cli *allow-unknown-opts?*]]
+   [clojure.tools.cli :refer [parse-opts]]
    [com.palletops.cli.context :refer [push-context]]
    [com.palletops.cli.help :refer [context-help-message]]
    [com.palletops.cli.resolve :refer [resolve-context]]))
@@ -76,8 +76,7 @@
   Return a tuple vector containing options map, args and help string. "
   [args option-descriptors]
   {:pre [(or (nil? option-descriptors) (sequential? option-descriptors))]}
-  (binding [*allow-unknown-opts?* true]
-    (apply cli args option-descriptors)))
+  (parse-opts args option-descriptors :in-order true))
 
 ;;; ## Arg validation
 (defn ^:internal validate-arg
@@ -195,8 +194,8 @@
   {:pre [(or (nil? args) (sequential? args))
          (or (nil? arg-descriptors) (sequential? arg-descriptors))
          (or (nil? option-descriptors) (sequential? option-descriptors))]}
-  (let [[options args] (cli-non-strict args option-descriptors)
-        valid-args (valid-args args arg-descriptors)]
+  (let [{:keys [options arguments]} (cli-non-strict args option-descriptors)
+        valid-args (valid-args arguments arg-descriptors)]
     [options valid-args]))
 
 ;;; ## Command execution

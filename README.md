@@ -1,3 +1,9 @@
+[Repository](https://github.com/pallet/cli-cmds) &#xb7;
+[Issues](https://github.com/pallet/cli-cmds/issues) &#xb7;
+[API docs](http://palletops.com/cli-cmds/0.1/api) &#xb7;
+[Annotated source](http://palletops.com/cli-cmds/0.1/annotated/uberdoc.html) &#xb7;
+[Release Notes](https://github.com/pallet/cli-cmds/blob/develop/ReleaseNotes.md)
+
 # cli-cmds
 
 A Clojure library for writing command line interfaces, where
@@ -140,7 +146,7 @@ The `:cli/config` key is used to configure the library.
 ### lein project.clj
 
 ```clojure
-:dependencies [[com.palletops/cli-cmds "0.1.0"]]
+:dependencies [[com.palletops/cli-cmds "0.1.1"]]
 ```
 
 ### maven pom.xml
@@ -150,7 +156,7 @@ The `:cli/config` key is used to configure the library.
   <dependency>
     <groupId>com.palletops</groupId>
     <artifactId>cli-cmds</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
   </dependency>
 <dependencies>
 

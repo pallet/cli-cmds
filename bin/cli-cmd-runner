@@ -1,0 +1,224 @@
+#!/usr/bin/env bash
+
+# TODO This file is a template for a self installing command line script,
+#      for use with a standalone jar file.
+# TODO Edit the environment variables below.
+# TODO Remove these TODO comments.
+
+# Place this file somewhere on your $PATH, and ensure it is executable.
+
+# Name of the cli command.
+#  Determines the location of self-installs.
+#  Determines the name of the script in messages.
+#  TODO this should match $(basename $0)
+export CLI_CMD_NAME="$(basename $0)"
+
+# Artifact ID for the cli command jar file.
+export CLI_ARTIFACT_ID="$2"
+
+# Version of the artifact to use
+export CLI_VERSION="$3"
+
+# URL of the script
+# TODO this is used to enable self upgrades.  It can point to a version of
+#      the script based on a tag in a public git repository, for example.
+export CLI_SCRIPT_URL="$4"
+
+# Symbol for the main entry point in the jar
+# TODO the default may be of used
+export CLI_MAIN_SYM="${CLI_CMD_NAME}.cli"
+
+
+# TODO you should not need to change anything past this point
+# ----------------------------------------------------------------------
+
+# Determine CLI_HOME
+export CLI_HOME="${CLI_HOME:-"$HOME/.${CLI_CMD_NAME}"}"
+
+# Where is/will be the cli jar installed?
+
+# Look for the artifact installed in the same directory as this
+# script.  This can be useful when running the cli without installing
+# the cli jar artifact.
+
+LOCALJAR="$(dirname $0)/${CLI_CMD_NAME}.jar"
+# resolve symlinks to the script itself portably
+while [ -h "$LOCALJAR" ] ; do
+    ls=`ls -ld "$LOCALJAR"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        LOCALJAR="$link"
+    else
+        LOCALJAR="$(dirname "$LOCALJAR"$)/$link"
+    fi
+done
+
+if [ -e "$LOCALJAR" ]; then
+    export CLI_JAR=${CLI_JAR:-"${LOCALJAR}"}
+fi
+
+CLI_JAR=${CLI_JAR:-"$CLI_HOME/self-installs/${CLI_CMD_NAME}-$CLI_VERSION-standalone.jar"}
+
+if [[ "$OSTYPE" == "cygwin" ]]; then
+  cygwin=true
+else
+  cygwin=false
+fi
+
+function download_failed_message {
+    echo "Failed to download $1"
+    echo "It's possible your HTTP client's certificate store does not have the"
+    echo "correct certificate authority needed. This is often caused by an"
+    echo "out-of-date version of libssl. Either upgrade it or set HTTP_CLIENT"
+    echo "to turn off certificate checks:"
+    echo "  export HTTP_CLIENT=\"wget --no-check-certificate -O\" # or"
+    echo "  export HTTP_CLIENT=\"curl --insecure -f -L -o\""
+    echo "It's also possible that you're behind a firewall haven't yet"
+    echo "set HTTP_PROXY and HTTPS_PROXY."
+}
+
+function self_install {
+  if [ -r "$CLI_JAR" ]; then
+    echo "The self-install jar already exists at $CLI_JAR."
+    echo "If you wish to re-download, delete it and rerun \"$0 self-install\"."
+    exit 1
+  fi
+  echo "Downloading ${CLI_CMD_NAME} to $CLI_JAR now..."
+  mkdir -p "$(dirname "$CLI_JAR")"
+  CLI_URL="http://tbd"
+  $HTTP_CLIENT "$CLI_JAR.pending" "$CLI_URL"
+  if [ $? == 0 ]; then
+      # TODO: checksum
+      mv -f "$CLI_JAR.pending" "$CLI_JAR"
+  else
+      rm "$CLI_JAR.pending" 2> /dev/null
+      download_failed_message "$CLI_URL"
+      exit 1
+  fi
+}
+
+# Check if running as root
+if [ `id -u` -eq 0 ] && [ "$CLI_ROOT" = "" ]; then
+    echo "WARNING: You're currently running as root; probably by accident."
+    echo "Press control-C to abort or Enter to continue as root."
+    echo "Set CLI_ROOT to disable this warning."
+    read _
+fi
+
+
+# Find the base of the project
+# NOT_FOUND=1
+# ORIGINAL_PWD="$PWD"
+# while [ ! -r "$PWD/project.clj" ] && [ "$PWD" != "/" ] && [ $NOT_FOUND -ne 0 ]
+# do
+#     cd ..
+#     if [ "$(dirname "$PWD")" = "/" ]; then
+#         NOT_FOUND=0
+#         cd "$ORIGINAL_PWD"
+#     fi
+# done
+
+
+if $cygwin; then
+    export CLI_HOME=`cygpath -w "$CLI_HOME"`
+fi
+
+## Figure out the script bin
+
+# normalize $0 on certain BSDs
+if [ "$(dirname "$0")" = "." ]; then
+    SCRIPT="$(which $(basename "$0"))"
+else
+    SCRIPT="$0"
+fi
+
+# resolve symlinks to the script itself portably
+while [ -h "$SCRIPT" ] ; do
+    ls=`ls -ld "$SCRIPT"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        SCRIPT="$link"
+    else
+        SCRIPT="$(dirname "$SCRIPT"$)/$link"
+    fi
+done
+# echo SCRIPT=$SCRIPT
+BIN_DIR="$(dirname "$SCRIPT")"
+# echo BIN_DIR=$BIN_DIR
+
+# capture JVM opts
+export CLI_JVM_OPTS="${CLI_JVM_OPTS-"-XX:+TieredCompilation -XX:TieredStopAtLevel=1"}"
+
+## Determine how to use CURL or WGET, and wether to use a proxy
+
+# This needs to be defined before we call HTTP_CLIENT below
+if [ "$HTTP_CLIENT" = "" ]; then
+    if type -p curl >/dev/null 2>&1; then
+        if [ "$https_proxy" != "" ]; then
+            CURL_PROXY="-x $https_proxy"
+        fi
+        HTTP_CLIENT="curl $CURL_PROXY -f -L -o"
+    else
+        HTTP_CLIENT="wget -O"
+    fi
+fi
+
+
+if [ ! -r "$CLI_JAR" -a "$1" != "self-install" ]; then
+    self_install
+fi
+
+
+# TODO: explain what to do when Java is missing
+export JAVA_CMD="${JAVA_CMD:-"java"}"
+export CLI_JAVA_CMD="${CLI_JAVA_CMD:-$JAVA_CMD}"
+
+# Support $JAVA_OPTS for backwards-compatibility.
+export JVM_OPTS="${JVM_OPTS:-"$JAVA_OPTS"}"
+
+
+if [ "$1" = "self-install" ]; then
+    echo "Manual self-install is deprecated; it will run automatically when necessary."
+    self_install
+elif [ "$1" = "upgrade" ] || [ "$1" = "downgrade" ]; then
+    if [ ! -w "$SCRIPT" ]; then
+        echo "You do not have permission to upgrade the installation in $SCRIPT"
+        exit 1
+    else
+        TARGET_VERSION="${2:-master}"
+        echo "The script at $SCRIPT will be upgraded to the latest $TARGET_VERSION version."
+        echo -n "Do you want to continue [Y/n]? "
+        read RESP
+        case "$RESP" in
+            y|Y|"")
+                echo
+                echo "Upgrading..."
+                TARGET="/tmp/${CLI_CMD_NAME}-$$-upgrade"
+                if $cygwin; then
+                    TARGET=`cygpath -w $TARGET`
+                fi
+                $HTTP_CLIENT "$TARGET" "$CLI_SCRIPT_URL"
+                if [ $? == 0 ]; then
+                    mv "$TARGET" "$SCRIPT" && chmod +x "$SCRIPT"
+                    exec "$SCRIPT" self-install
+                else
+                    download_failed_message "$CLI_SCRIPT_URL"
+                fi;;
+            *)
+                echo "Aborted."
+                exit 1;;
+        esac
+    fi
+else
+    # Run the jar
+    if $cygwin; then
+        # When running on Cygwin, use Windows-style paths for java
+        ORIGINAL_PWD=`cygpath -w "$ORIGINAL_PWD"`
+    fi
+
+    "$CLI_JAVA_CMD" -client -cp $CLI_JAR clojure.main -m ${CLI_MAIN_SYM} "$@"
+
+    EXIT_CODE=$?
+    exit $EXIT_CODE
+
+fi

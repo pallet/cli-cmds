@@ -154,7 +154,7 @@
       (doseq [suggestion suggestions]
         (println "        " suggestion))))
   (throw
-   (ex-info "Command not found"
+   (ex-info (str "Command \"" cmd "\" not found")
             {:exit-code 1
              :suppress-msg true})))
 
